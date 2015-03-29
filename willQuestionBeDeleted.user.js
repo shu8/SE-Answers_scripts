@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Will question be deleted?
 // @namespace    http://stackexchange.com/users/4337810/%E1%94%95%E1%96%BA%E1%98%8E%E1%95%8A
-// @version      1.0
+// @version      1.1
 // @description  Adds a message on questions which *might* be deleted by the SE delete bot
 // @author       ᔕᖺᘎᕊ (http://stackexchange.com/users/4337810/%E1%94%95%E1%96%BA%E1%98%8E%E1%95%8A)
 // @match        *://*.stackexchange.com/*
@@ -74,9 +74,7 @@ $.getJSON("https://api.stackexchange.com/2.2/questions/" + id + "?order=desc&sor
                 if( !json.items[0].locked_date ) { //if it is not locked
                     if( answerCount == 0 ) { //if it has 0 answers
                         if (!json.items[0].accepted_answer_id) { //if it has no accepted answer
-                            if (!json.items[0].last_edit_date || currentDate - json.items[0].last_edit_date > nineDays ) { //if it's never been edited OR not been edited in the last 9 days
-                                addWarning('Within 9 days');
-                            }                            
+                            addWarning('Within 9 days');
                         }
                     }
                 }
