@@ -25,18 +25,19 @@ var askedDaysAgo = $('.question-stats td:eq(1) p').text().split(' ')[0],
     currentTime = (new Date).getTime(),
     elevenMonths = 28927183,
     nineDays = 777600,
+    fifteenDays = 1296000,
     commentCount = $('.question .comment').length;
 
 //More than 30 days old:
-if( askedDaysAgo >= 15 ) { //only care if it will happen in the next 15 days
-    if( voteCount <= -1 ) { //if the vote count is <= -1
-        if( answerCount.trim() == '' ) { //if there are no answers
-            $.getJSON("https://api.stackexchange.com/2.2/questions/" + id + "?order=desc&sort=activity&site=" + sitename, function(json) {
-                if( !json.items[0].locked_date ) { //if it isn't locked
+if( voteCount <= -1 ) { //if the vote count is <= -1
+    if( answerCount.trim() == '' ) { //if there are no answers
+        $.getJSON("https://api.stackexchange.com/2.2/questions/" + id + "?order=desc&sort=activity&site=" + sitename, function(json) {
+            if( !json.items[0].locked_date ) { //if it isn't locked
+                if ( currentTime - json.items[0].creation_date >= fifteenDays ) { //only care if it will happen in the next 15 days
                     addWarning('Within 15 days');
                 }
-            });
-        }
+            }
+        });
     }
 }
 
@@ -73,7 +74,7 @@ $.getJSON("https://api.stackexchange.com/2.2/questions/" + id + "?order=desc&sor
                 if( !json.items[0].locked_date ) { //if it is not locked
                     if( answerCount == 0 ) { //if it has 0 answers
                         if (!json.items[0].accepted_answer_id) { //if it has no accepted answer
-                            if (!json.items[0].last_edit_date || currentDate - json.items[0].last_edit_date < nineDays ) { //if it's never been edited OR not been edited in the last 9 days
+                            if (!json.items[0].last_edit_date || currentDate - json.items[0].last_edit_date > nineDays ) { //if it's never been edited OR not been edited in the last 9 days
                                 addWarning('Within 9 days');
                             }                            
                         }
