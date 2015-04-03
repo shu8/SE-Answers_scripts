@@ -29,6 +29,7 @@ setTimeout(function() {
         $('#realVotesTab').on('click', function() {
             $('#tabs a').removeClass('youarehere');
             $(this).addClass('youarehere');       
+            //Thanks: http://stackoverflow.com/a/14160529/3541881
             $wrapper.find('.answer').sort(function(a, b) {
                 return +b.getAttribute('data-votes') - +a.getAttribute('data-votes');
             }).prependTo($wrapper);
