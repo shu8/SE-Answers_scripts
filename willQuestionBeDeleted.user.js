@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Will question be deleted?
 // @namespace    http://stackexchange.com/users/4337810/%E1%94%95%E1%96%BA%E1%98%8E%E1%95%8A
-// @version      1.1
+// @version      1.2
 // @description  Adds a message on questions which *might* be deleted by the SE delete bot
 // @author       ᔕᖺᘎᕊ (http://stackexchange.com/users/4337810/%E1%94%95%E1%96%BA%E1%98%8E%E1%95%8A)
 // @match        *://*.stackexchange.com/*
@@ -14,7 +14,9 @@
 // @grant        none
 // ==/UserScript==
 function addWarning(title) {
-    $('#qinfo').append("<tr><td><p class='label-key'>Risk of <br />deletion?</p></td><td style='padding-left:10px'><p class='label-key' title='"+title+"'><b>Yes</b></p></td></tr>");    
+    if (! $('#riskOfDeletion').length ) {
+        $('#qinfo').append("<tr><td><p class='label-key' id='riskOfDeletion'>Risk of <br />deletion?</p></td><td style='padding-left:10px'><p class='label-key' title='"+title+"'><b>Yes</b></p></td></tr>");    
+    }
 }
 
 var askedDaysAgo = $('.question-stats td:eq(1) p').text().split(' ')[0],
