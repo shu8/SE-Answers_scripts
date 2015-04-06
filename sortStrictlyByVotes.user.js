@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Sort by votes, properly...
 // @namespace    http://stackexchange.com/users/4337810
-// @version      1.0
+// @version      1.1
 // @description  Adds a new option on questions to sort answers by votes *ignoring the accepted answer* - unlike the current 'votes' tab.
 // @author       ᔕᖺᘎᕊ (http://stackexchange.com/users/4337810)
 // @match        *://*.stackexchange.com/*
@@ -34,5 +34,10 @@ setTimeout(function() {
                 return +b.getAttribute('data-votes') - +a.getAttribute('data-votes');
             }).prependTo($wrapper);
         });    
+        
+        //Comment out the next 3 lines if you do not want the 'real votes' tab to automatically be chosen when yuo first arrive at a question (ie. prepend "//" to the next 3 lines)
+        if(document.URL.indexOf('?answertab=') == -1) {
+           $('#realVotesTab').trigger('click');
+        }
     }
 }, 100);
