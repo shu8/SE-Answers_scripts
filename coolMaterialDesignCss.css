@@ -1,13 +1,23 @@
-.vote-up-off:hover, .vote-down-off:hover, .vote-up-on:hover, .vote-down-on:hover, .star-off:hover, .star-on:hover  {
-  -webkit-animation: pulsate 0.5s ease-out;
-}
+// ==UserScript==
+// @name         Cool CSS
+// @namespace    http://your.homepage/
+// @version      0.1
+// @description  enter something useful
+// @author       You
+// @match        http://meta.stackexchange.com/questions/915/can-we-have-the-ability-to-retract-a-close-vote-before-it-closes?rq=1
+// @grant        none
+// ==/UserScript==
 
-.star-off:active,.star-on:active {
-    -webkit-animation-name: press;
-    -webkit-animation-duration: .5s;
-    animation-name: press;
-    animation-duration: .5s
-}
+//.vote-up-off:hover, .vote-down-off:hover, .vote-up-on:hover, .vote-down-on:hover, .star-off:hover, .star-on:hover  {
+  //-webkit-animation: pulsate 0.5s ease-out;
+//}
+
+//.star-off:active,.star-on:active {
+  //  -webkit-animation-name: press;
+    //-webkit-animation-duration: .5s;
+    //animation-name: press;
+    //animation-duration: .5s
+//}
 
 @keyframes press {
     0% {
@@ -49,7 +59,7 @@
     }
 }
 
-@-webkit-keyframes pulsate {
+@-webkit-keyframes pulse {
   0% {
     transform: scale(1);
   }
@@ -63,11 +73,26 @@
   }
 }
 
-
-.vote-down-off, .vote-up-off {
+.vote-down-off,.vote-up-off {
+    /* position:relative; */
     transition: all .1s ease,background-color .4s ease,background-position .4s ease;
-    transition-property: all, background-color, background-position;
-    transition-duration: 0.1s, 0.4s, 0.4s;
-    transition-timing-function: ease, ease, ease;
-    transition-delay: initial, initial, initial;
+    -webkit-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
+    -moz-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
+    -ms-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
+    -o-transition: all .1s ease,background-color .4s ease,background-position .4s ease
+}
+
+.vote-down-off:hover,.vote-up-off:hover {
+    -webkit-animation-name: pulse;
+    -webkit-animation-duration: .5s;
+    animation-name: pulse;
+    animation-duration: .5s
+}
+
+.vote-down-off:active,.vote-up-off:active {
+    -webkit-animation-name: press;
+    -webkit-animation-duration: .5s;
+    animation-name: press;
+    animation-duration: .5s;
+    background-color: #f4511e
 }
