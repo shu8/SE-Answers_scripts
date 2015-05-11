@@ -1,0 +1,73 @@
+.vote-up-off:hover, .vote-down-off:hover, .vote-up-on:hover, .vote-down-on:hover, .star-off:hover, .star-on:hover  {
+  -webkit-animation: pulsate 0.5s ease-out;
+}
+
+.star-off:active,.star-on:active {
+    -webkit-animation-name: press;
+    -webkit-animation-duration: .5s;
+    animation-name: press;
+    animation-duration: .5s
+}
+
+@keyframes press {
+    0% {
+        -ms-transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1)
+    }
+
+    50% {
+        -ms-transform: scale(1.2, 1.2);
+        -webkit-transform: scale(1.2, 1.2);
+        transform: scale(1.2, 1.2)
+    }
+
+    100% {
+        -ms-transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1)
+    }
+}
+
+@-webkit-keyframes press {
+    0% {
+        -ms-transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1)
+    }
+
+    50% {
+        -ms-transform: scale(.8, .8);
+        -webkit-transform: scale(.8, .8);
+        transform: scale(.8, .8)
+    }
+
+    100% {
+        -ms-transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1)
+    }
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.vote-down-off, .vote-up-off {
+    transition: all .1s ease,background-color .4s ease,background-position .4s ease;
+    transition-property: all, background-color, background-position;
+    transition-duration: 0.1s, 0.4s, 0.4s;
+    transition-timing-function: ease, ease, ease;
+    transition-delay: initial, initial, initial;
+}
