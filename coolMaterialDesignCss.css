@@ -7,119 +7,106 @@
 // @match        http://meta.stackexchange.com/questions/915/can-we-have-the-ability-to-retract-a-close-vote-before-it-closes?rq=1
 // @grant        none
 // ==/UserScript==
-
 @keyframes pulse {
     0% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
-
     50% {
         -ms-transform: scale(1.1, 1.5);
         -webkit-transform: scale(1.1, 1.5);
         transform: scale(1.1, 1.5)
     }
-
     100% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
 }
-
 @-webkit-keyframes pulse {
     0% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
-
     50% {
         -ms-transform: scale(1.1, 1.5);
         -webkit-transform: scale(1.1, 1.5);
         transform: scale(1.1, 1.5)
     }
-
     100% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
 }
-
 @keyframes press {
     0% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
-
     50% {
         -ms-transform: scale(1.2, 1.2);
         -webkit-transform: scale(1.2, 1.2);
         transform: scale(1.2, 1.2)
     }
-
     100% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
 }
-
 @-webkit-keyframes press {
     0% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
-
     50% {
         -ms-transform: scale(.8, .8);
         -webkit-transform: scale(.8, .8);
         transform: scale(.8, .8)
     }
-
     100% {
         -ms-transform: scale(1, 1);
         -webkit-transform: scale(1, 1);
         transform: scale(1, 1)
     }
 }
-
-
-.vote-down-off,.vote-up-off {
-    position:relative;
-    transition: all .1s ease,background-color .4s ease,background-position .4s ease;
-    -webkit-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
-    -moz-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
-    -ms-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
-    -o-transition: all .1s ease,background-color .4s ease,background-position .4s ease
+.vote-down-off,
+.vote-up-off {
+    position: relative;
+    transition: all .1s ease, background-color .4s ease, background-position .4s ease;
+    -webkit-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
+    -moz-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
+    -ms-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
+    -o-transition: all .1s ease, background-color .4s ease, background-position .4s ease
 }
-
-.vote-down-off:hover,.vote-up-off:hover {
+.vote-down-off:hover,
+.vote-up-off:hover {
     -webkit-animation-name: pulse;
     -webkit-animation-duration: .5s;
     animation-name: pulse;
     animation-duration: .5s
 }
-
-.vote-down-off:active,.vote-up-off:active {
+.vote-down-off:active,
+.vote-up-off:active {
     -webkit-animation-name: press;
     -webkit-animation-duration: .5s;
     animation-name: press;
     animation-duration: .5s;
 }
-
-.star-off:hover,.star-on:hover {
+.star-off:hover,
+.star-on:hover {
     -webkit-animation-name: pulse;
     -webkit-animation-duration: .5s;
     animation-name: pulse;
     animation-duration: .5s
 }
-
-.star-off:active,.star-on:active {
+.star-off:active,
+.star-on:active {
     -webkit-animation-name: press;
     -webkit-animation-duration: .5s;
     animation-name: press;
