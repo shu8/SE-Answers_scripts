@@ -8,16 +8,19 @@
 // @grant        none
 // ==/UserScript==
 
-//.vote-up-off:hover, .vote-down-off:hover, .vote-up-on:hover, .vote-down-on:hover, .star-off:hover, .star-on:hover  {
-  //-webkit-animation: pulsate 0.5s ease-out;
-//}
+.star-off:hover,.star-on:hover {
+    -webkit-animation-name: pulse;
+    -webkit-animation-duration: .5s;
+    animation-name: pulse;
+    animation-duration: .5s
+}
 
-//.star-off:active,.star-on:active {
-  //  -webkit-animation-name: press;
-    //-webkit-animation-duration: .5s;
-    //animation-name: press;
-    //animation-duration: .5s
-//}
+.star-off:active,.star-on:active {
+    -webkit-animation-name: press;
+    -webkit-animation-duration: .5s;
+    animation-name: press;
+    animation-duration: .5s
+}
 
 
 @keyframes pulse {
