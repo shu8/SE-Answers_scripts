@@ -14,9 +14,9 @@
         transform: scale(1, 1)
     }
     50% {
-        -ms-transform: scale(1.1, 1.5);
-        -webkit-transform: scale(1.1, 1.5);
-        transform: scale(1.1, 1.5)
+        -ms-transform: scale(1.1, 1.15);
+        -webkit-transform: scale(1.1, 1.15);
+        transform: scale(1.1, 1.15)
     }
     100% {
         -ms-transform: scale(1, 1);
@@ -31,9 +31,9 @@
         transform: scale(1, 1)
     }
     50% {
-        -ms-transform: scale(1.1, 1.5);
-        -webkit-transform: scale(1.1, 1.5);
-        transform: scale(1.1, 1.5)
+        -ms-transform: scale(1.1, 1.15);
+        -webkit-transform: scale(1.1, 1.15);
+        transform: scale(1.1, 1.15)
     }
     100% {
         -ms-transform: scale(1, 1);
