@@ -8,21 +8,6 @@
 // @grant        none
 // ==/UserScript==
 
-.star-off:hover,.star-on:hover {
-    -webkit-animation-name: pulse;
-    -webkit-animation-duration: .5s;
-    animation-name: pulse;
-    animation-duration: .5s
-}
-
-.star-off:active,.star-on:active {
-    -webkit-animation-name: press;
-    -webkit-animation-duration: .5s;
-    animation-name: press;
-    animation-duration: .5s
-}
-
-
 @keyframes pulse {
     0% {
         -ms-transform: scale(1, 1);
@@ -105,7 +90,7 @@
 
 
 .vote-down-off,.vote-up-off {
-    /* position:relative; */
+    position:relative;
     transition: all .1s ease,background-color .4s ease,background-position .4s ease;
     -webkit-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
     -moz-transition: all .1s ease,background-color .4s ease,background-position .4s ease;
@@ -125,4 +110,18 @@
     -webkit-animation-duration: .5s;
     animation-name: press;
     animation-duration: .5s;
+}
+
+.star-off:hover,.star-on:hover {
+    -webkit-animation-name: pulse;
+    -webkit-animation-duration: .5s;
+    animation-name: pulse;
+    animation-duration: .5s
+}
+
+.star-off:active,.star-on:active {
+    -webkit-animation-name: press;
+    -webkit-animation-duration: .5s;
+    animation-name: press;
+    animation-duration: .5s
 }
