@@ -86,19 +86,7 @@
     -o-transition: all .1s ease, background-color .4s ease, background-position .4s ease
 }
 .vote-down-off:hover,
-.vote-up-off:hover {
-    -webkit-animation-name: pulse;
-    -webkit-animation-duration: .5s;
-    animation-name: pulse;
-    animation-duration: .5s
-}
-.vote-down-off:active,
-.vote-up-off:active {
-    -webkit-animation-name: press;
-    -webkit-animation-duration: .5s;
-    animation-name: press;
-    animation-duration: .5s;
-}
+.vote-up-off:hover,
 .star-off:hover,
 .star-on:hover {
     -webkit-animation-name: pulse;
@@ -106,10 +94,12 @@
     animation-name: pulse;
     animation-duration: .5s
 }
+.vote-down-off:active,
+.vote-up-off:active,
 .star-off:active,
-.star-on:active {
+.star-on:active{
     -webkit-animation-name: press;
     -webkit-animation-duration: .5s;
     animation-name: press;
-    animation-duration: .5s
+    animation-duration: .5s;
 }
