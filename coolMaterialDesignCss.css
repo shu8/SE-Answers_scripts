@@ -6,6 +6,7 @@
 // @author       You
 // @match        http://meta.stackexchange.com/questions/915/can-we-have-the-ability-to-retract-a-close-vote-before-it-closes?rq=1
 // @grant        none
+//$('head').append('<link rel="stylesheet" href="https://rawgit.com/shu8/SE-Answers_scripts/master/coolMaterialDesignCss.css" type="text/css" />');
 // ==/UserScript==
 @keyframes pulse {
     0% {
@@ -79,7 +80,7 @@
 .vote-up-off {
     position: relative;
     transition: all .1s ease, background-color .4s ease, background-position .4s ease;
-    -webkit-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
+    -webkit-transition: height .1s ease, background-color .4s ease, background-position .4s ease;
     -moz-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
     -ms-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
     -o-transition: all .1s ease, background-color .4s ease, background-position .4s ease
