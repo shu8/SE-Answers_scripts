@@ -1,13 +1,3 @@
-// ==UserScript==
-// @name         Cool CSS
-// @namespace    http://your.homepage/
-// @version      0.1
-// @description  enter something useful
-// @author       You
-// @match        http://meta.stackexchange.com/questions/915/can-we-have-the-ability-to-retract-a-close-vote-before-it-closes?rq=1
-// @grant        none
-//$('head').append('<link rel="stylesheet" href="https://rawgit.com/shu8/SE-Answers_scripts/master/coolMaterialDesignCss.css" type="text/css" />');
-// ==/UserScript==
 @keyframes pulse {
     0% {
         -ms-transform: scale(1, 1);
