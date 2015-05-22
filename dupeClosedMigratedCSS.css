@@ -4,6 +4,6 @@
     border-radius: 4px;
     font-size: 12px;
 }
-.duplicate {backgorund: #FA0;}
-.closed {backgorund: #F00;}
-.migrated {backgorund: #19F;}
+.duplicate {background: #FA0;}
+.closed {background: #F00;}
+.migrated {background: #19F;}
