@@ -11,6 +11,7 @@
 // @match        *://*.askubuntu.com/*
 // @match        *://*.stackapps.com/*
 // @match        *://*.mathoverflow.net/*
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
 // @grant        none
 // ==/UserScript==
 $('head').append('<link rel="stylesheet" href="https://rawgit.com/shu8/SE-Answers_scripts/master/dupeClosedMigratedCSS.css" type="text/css" />'); //add the CSS
