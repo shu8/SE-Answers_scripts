@@ -1,0 +1,9 @@
+.duplicate, .closed, .migrated {
+    color: #FFF;
+    padding: 2px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.duplicate {backgorund: #FA0;}
+.closed {backgorund: #F00;}
+.migrated {backgorund: #19F;}
