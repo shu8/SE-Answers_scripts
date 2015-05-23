@@ -21,12 +21,19 @@ var userscript = function($) {
     $.each($('.question-summary'), function() { //Find the questions and add their id's and statuses to an object
         if($(this).find('.summary a:eq(0)').text().trim().substr($(this).find('.summary a:eq(0)').text().trim().length-11) == '[duplicate]') {
             questions[$(this).attr('id').split('-')[2]] = 'duplicate';
+            $(this).find('.summary a:eq(0)').text($(this).find('.summary a:eq(0)').text().trim().substr(0, $(this).find('.summary a:eq(0)').text().trim().length-11)); //remove [duplicate]
+            
         } else if($(this).find('.summary a:eq(0)').text().trim().substr($(this).find('.summary a:eq(0)').text().trim().length-8) == '[closed]') {
             questions[$(this).attr('id').split('-')[2]] = 'closed';
+            $(this).find('.summary a:eq(0)').text($(this).find('.summary a:eq(0)').text().trim().substr(0, $(this).find('.summary a:eq(0)').text().trim().length-8)); //remove [closed]
+            
         } else if($(this).find('.summary a:eq(0)').text().trim().substr($(this).find('.summary a:eq(0)').text().trim().length-10) == '[migrated]') {
             questions[$(this).attr('id').split('-')[2]] = 'migrated';
+            $(this).find('.summary a:eq(0)').text($(this).find('.summary a:eq(0)').text().trim().substr(0, $(this).find('.summary a:eq(0)').text().trim().length-10)); //remove [migrated]
+            
         } else if($(this).find('.summary a:eq(0)').text().trim().substr($(this).find('.summary a:eq(0)').text().trim().length-9) == '[on hold]') {
             questions[$(this).attr('id').split('-')[2]] = 'onhold';
+            $(this).find('.summary a:eq(0)').text($(this).find('.summary a:eq(0)').text().trim().substr(0, $(this).find('.summary a:eq(0)').text().trim().length-9)); //remove [on hold]
         }
     });
 
