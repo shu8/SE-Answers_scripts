@@ -2,7 +2,7 @@
 // @name         Side By Side Editing
 // @namespace    http://stackexchange.com/users/4337810/
 // @version      1.1
-// @description  A userscript that adds the option to have the preview and editor side-by-side when asking/answering questions and when editing existing questions/answers
+// @description  A userscript for Stack Exchange sites that adds the option to have the preview and editor side-by-side when posting and editing questions and answers
 // @match        *://*.stackexchange.com/*
 // @match        *://*.stackoverflow.com/*
 // @match        *://*.superuser.com/*
@@ -10,6 +10,7 @@
 // @match        *://*.askubuntu.com/*
 // @match        *://*.stackapps.com/*
 // @match        *://*.mathoverflow.net/*
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @grant        GM_addStyle
 // ==/UserScript==
