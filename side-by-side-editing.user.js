@@ -48,7 +48,7 @@ function sideBySideEditing(itemid) {
         
         //stretch the text input window to match the preview length
         //"215" came from trial and error
-        previewLength = $("#wmd-preview" + toAppend).height();
+        var previewLength = $("#wmd-preview" + toAppend).height();
         if(previewLength > 215) {  //default input box is 200px tall, only scale if necessary
             $("#wmd-input" + toAppend).height(previewLength - 15);
         }
