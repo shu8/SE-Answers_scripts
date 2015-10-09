@@ -106,7 +106,7 @@ function addButton(jNode) {
     var itemid = jNode[0].id.replace( /^\D+/g, '');
     var toAppend = (itemid.length > 0 ? "-" + itemid : "");
     setTimeout(function() {
-        var sbsBtn = "<li class='wmd-button' title='side-by-side editing' style='left: 409px;width: 170px;'><div id='wmd-sbs-button" + toAppend + "' style='background-image: none;'>Toggle Side-By-Side Editing</div></li>";
+        var sbsBtn = "<li class='wmd-button' title='side-by-side editing' style='left: 415px;width: 170px;'><div id='wmd-sbs-button" + toAppend + "' style='background-image: none;'>Toggle Side-By-Side Editing</div></li>";
         $('[id=' + jNode[0].id + ']').after(sbsBtn);
         
         $("#wmd-sbs-button" + toAppend).on('click', function() {
