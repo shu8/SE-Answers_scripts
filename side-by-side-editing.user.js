@@ -34,13 +34,13 @@ GM_addStyle ('                                      \
                                                     \
     .draft-saved.sbs-on.sbs-newq {                  \
         margin-left: 40px !important;               \
-        margin-bottom: -9px !important;             \
+        height: 15px !important;                    \
         float: left !important;                     \
     }                                               \
                                                     \
     .draft-discarded.sbs-on.sbs-newq {              \
         margin-left: 40px !important;               \
-        margin-bottom: -9px !important;             \
+        height: 15px !important;                    \
         float: left !important;                     \
     }                                               \
                                                     \
@@ -120,16 +120,14 @@ function sideBySideEditing(toAppend) {
         var editcommentp1 = $('#edit-comment' + toAppend).parent().parent().parent().parent().parent();
         editcommentp1.toggleClass('edit-comment-p1 sbs-on');
         editcommentp1.parent().toggleClass('edit-comment-p2 sbs-on');
-    }
-
-    if(window.location.pathname.indexOf('questions/ask') > -1) {  //extra CSS for 'ask' page
+    } else if(window.location.pathname.indexOf('questions/ask') > -1) {  //extra CSS for 'ask' page
         wmdpreview.toggleClass('sbs-newq');
         draftsaved.toggleClass('sbs-newq');
         draftdiscarded.toggleClass('sbs-newq');
         $('.tag-editor').parent().toggleClass('tag-editor-p sbs-on sbs-newq');
         $('#question-only-section').children('.form-item').toggleClass('sbs-on sbs-newq');
 
-        //swap the order of thing to prevent draft saved/discarded messages from
+        //swap the order of things to prevent draft saved/discarded messages from
         // moving the preview pane around
         if(wmdpreview.hasClass('sbs-on')) {
             draftsaved.before(wmdpreview);
