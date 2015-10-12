@@ -15,133 +15,152 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-function sideBySideEditing(itemid) {
-    if(itemid === '') {
-        itemid = 'newAnswer';
+GM_addStyle ('                                      \
+    #sidebar.sbs-on {                               \
+        display: none !important;                   \
+    }                                               \
+                                                    \
+    #content.sbs-on {                               \
+        width: 1360px !important;                   \
+    }                                               \
+                                                    \
+    .draft-saved.sbs-on {                           \
+        margin-left: 35px !important;               \
+    }                                               \
+                                                    \
+    .draft-discarded.sbs-on {                       \
+        margin-left: 35px !important;               \
+    }                                               \
+                                                    \
+    .votecell.sbs-on {                              \
+        display: none !important;                   \
+    }                                               \
+                                                    \
+    .hide-preview.sbs-on {                          \
+        margin-left: 35px !important;               \
+    }                                               \
+                                                    \
+    .edit-comment-p1.sbs-on {                       \
+        float: left !important;                     \
+    }                                               \
+                                                    \
+    .edit-comment-p2.sbs-on {                       \
+        float: left !important;                     \
+        margin-left: 10px !important;               \
+    }                                               \
+                                                    \
+    .post-editor.sbs-on {                           \
+        width: 1360px !important;                   \
+    }                                               \
+                                                    \
+    .wmd-button-bar.sbs-on {                        \
+        float: none !important;                     \
+    }                                               \
+                                                    \
+    .wmd-container.sbs-on {                         \
+        float: left !important;                     \
+    }                                               \
+                                                    \
+    .wmd-preview.sbs-on {                           \
+        clear: none !important;                     \
+        float: right !important;                    \
+    }                                               \
+                                                    \
+    .wmd-preview.sbs-on.sbs-newq {                  \
+        margin-top: 10px !important;                \
+    }                                               \
+                                                    \
+    .tag-editor-p.sbs-on {                          \
+        float: left;                                \
+    }                                               \
+');
+
+function sideBySideEditing(toAppend) {
+    //variables to reduce DOM searches
+    var wmdinput = $('#wmd-input' + toAppend);
+    var wmdpreview = $('#wmd-preview' + toAppend);
+    var posteditor = $('#post-editor' + toAppend);
+    
+    $('#draft-saved' + toAppend).toggleClass('sbs-on');
+    $('#draft-discarded' + toAppend).toggleClass('sbs-on');
+    $('#wmd-button-bar' + toAppend).toggleClass('sbs-on');
+
+    posteditor.toggleClass('sbs-on');
+    wmdinput.parent().toggleClass('sbs-on');  //wmdinput.parent() has class wmd-container
+    wmdpreview.toggleClass('sbs-on');
+
+    if(toAppend.length > 0) {  //options specific to making edits on existing questions/answers
+        posteditor.find('.hide-preview').toggleClass('sbs-on');
+        
+        //hack: float nuttiness for "Edit Summary" box
+        var editcommentp1 = $('#edit-comment' + toAppend).parent().parent().parent().parent().parent();
+        editcommentp1.toggleClass('edit-comment-p1 sbs-on');
+        editcommentp1.parent().toggleClass('edit-comment-p2 sbs-on');
     }
 
-    if(sbsExpanded[itemid] == undefined || sbsExpanded[itemid] == false) {  //sbs is off, turn it on
-        var toAppend = (itemid === 'newAnswer' ? '' : '-' + itemid);  //helps select tags specific to the question/answer being edited (or new answer being written)
+    if(window.location.pathname.indexOf('questions/ask') > -1) {  //extra CSS for 'ask' page
+        wmdpreview.toggleClass('sbs-newq');
+        $('.tag-editor').parent().toggleClass('tag-editor-p sbs-on');
+    }
 
-        //variables to reduce DOM searches
-        var wmdinput = $('#wmd-input' + toAppend);
-        var wmdpreview = $('#wmd-preview' + toAppend);
-        var posteditor = $('#post-editor' + toAppend);
-        
-        $('#sidebar').hide();
-        $('#content').width(1360);
-        
-        $('#draft-saved' + toAppend).css('margin-left', '35px');
-        $('#draft-discarded' + toAppend).css('margin-left', '35px');
-        $('#wmd-button-bar' + toAppend).css('float', 'none');
+    if(wmdpreview.hasClass('sbs-on')) {  //sbs was toggled on
+        $('#sidebar').addClass('sbs-on');
+        $('#content').addClass('sbs-on');
 
-        posteditor.width(1360);
-        wmdinput.parent().css('float', 'left');
-        wmdpreview.css({'clear':'none', 'float':'right'});
-        
+        if(toAppend.length > 0) {  //current sbs toggle is for an edit interface
+            $('.votecell').addClass('sbs-on');
+        }
+
         //stretch the text input window to match the preview length
-        //"215" came from trial and error
-        var previewLength = wmdpreview.height();
-        if(previewLength > 215) {  //default input box is 200px tall, only scale if necessary
-            wmdinput.height(previewLength - 15);
+        // - "215" came from trial and error
+        // - Can this be done using toggleClass?
+        var previewHeight = wmdpreview.height();
+        if(previewHeight > 215) {  //default input box is 200px tall, only scale if necessary
+            wmdinput.height(previewHeight - 15);
         }
+    } else {  //sbs was toggled off
+        //check if sbs is off for all existing questions and answers
+        if($('.question').find('.wmd-preview.sbs-on').length == 0 && $('.answer').find('.wmd-preview.sbs-on').length == 0) {
+            $('.votecell').removeClass('sbs-on');
 
-        if(itemid != 'newAnswer') {  //options specific to making edits on existing questions/answers
-            $('.votecell').hide();
-            posteditor.find('.hide-preview').css('margin-left', '35px');  //not necessary, looks better though
-            
-            //hack: float nuttiness for "Edit Summary" box
-            var editcomment = $('#edit-comment' + toAppend);
-            editcomment.parent().parent().parent().parent().parent().css('float', 'left');
-            editcomment.parent().parent().parent().parent().parent().parent().css({'float':'left', 'margin-left':'10px'});
-
-            numOfEditingSBS++;  //to indicate that sbs is enabled for a question/answer edit
-        }
-
-        if(window.location.pathname.indexOf('questions/ask') > -1) {  //extra CSS for 'ask' page
-            wmdpreview.css('margin-top', '10px');
-            $('.tag-editor').parent().css('float', 'left');
-        }
-
-        sbsExpanded[itemid] = true;  //to indicate that sbs is enabled for THIS question/answer edit or new answer
-    } else { //sbs is on, turn it off
-        var toAppend = (itemid === 'newAnswer' ? '' : '-' + itemid);  //helps select tags specific to the question/answer being edited (or new answer being written)
-
-        //variables to reduce DOM searches
-        var wmdinput = $('#wmd-input' + toAppend);
-        var wmdpreview = $('#wmd-preview' + toAppend);
-        var posteditor = $('#post-editor' + toAppend);
-        
-        $('#draft-saved' + toAppend).css('margin-left', '0px');
-        $('#draft-discarded' + toAppend).css('margin-left', '0px');
-        $('#wmd-button-bar' + toAppend).css('float', 'left');
-
-        posteditor.width(660);
-        wmdinput.parent().css('float', 'none');
-        wmdpreview.css({'clear':'both', 'float':'none'});
-        
-        wmdinput.height(200);
-
-        if(toAppend.length > 0) {  //options specific to making edits on existing questions/answers
-            posteditor.find('.hide-preview').css('margin-left', '-5px');
-            
-            //hack: float nuttiness for "Edit Summary" box
-            var editcomment = $('#edit-comment' + toAppend);
-            editcomment.parent().parent().parent().parent().parent().css('float', 'none');
-            editcomment.parent().parent().parent().parent().parent().parent().css({'float':'none', 'margin-left':'0px'});
-
-            numOfEditingSBS--;  //to indicate that sbs is disabled for a question/answer edit
-        }
-
-        if(window.location.pathname.indexOf('questions/ask') > -1) {  //extra CSS for 'ask' page
-            wmdpreview.css('margin-top', '0px');
-            $(".tag-editor").parent().css('float', 'none');
-        }
-
-        sbsExpanded[itemid] = false;  //to indicate that sbs is disabled for THIS question/answer edit or new answer
-
-        if(numOfEditingSBS == 0) {  //sbs is disabled for all question/answer edits
-            $('.votecell').show();
-
-            if(sbsExpanded['newAnswer'] == undefined || sbsExpanded['newAnswer'] == false) { //sbs is disabled everywhere
-                $('#content').width(1000);
-                $('#sidebar').show();
+            if ( !($('#wmd-preview').hasClass('sbs-on')) ) {  //sbs is off for everything
+                $('#sidebar').removeClass('sbs-on');
+                $('#content').removeClass('sbs-on');
             }
         }
+
+        //return input text window to original size
+        // - Can this be done using toggleClass?
+        wmdinput.height(200);
     }
 }
 
 function addButton(jNode) {
     var itemid = jNode[0].id.replace( /^\D+/g, '');
-    var toAppend = (itemid.length > 0 ? '-' + itemid : '');
-    
+    var toAppend = (itemid.length > 0 ? '-' + itemid : '');  //helps select tags specific to the question/answer
+                                                             // being edited (or new question/answer being written)
     setTimeout(function() {
-        var sbsBtn = '<li class="wmd-button" title="side-by-side editing" style="left: 415px;width: 170px;"><div id="wmd-sbs-button' + toAppend + '" style="background-image: none;">Toggle Side-By-Side Editing</div></li>';
+        var sbsBtn = '<li class="wmd-button" title="side-by-side-editing" style="left: 415px;width: 170px;"> \
+                      <div id="wmd-sbs-button' + toAppend + '" style="background-image: none;">              \
+                      Toggle Side-By-Side Editing</div></li>';
         jNode.after(sbsBtn);
         
-        $('#wmd-sbs-button' + toAppend).on('click', function() {
-            sideBySideEditing(itemid);
+        //add click listener to sbsBtn
+        jNode.next().on('click', function() {
+            sideBySideEditing(toAppend);
         });
         
         //add click listeners for "Save Edits" and "cancel" buttons
         // - also gets added to the "Post New Question" and "Post New Answer" button as an innocuous (I think) side effect
-        $('#post-editor' + toAppend).siblings('.[class^="form-submit"]').children().on('click', function() {
-            if(sbsExpanded[itemid]) { sideBySideEditing(itemid); }
+        $('#post-editor' + toAppend).siblings('.form-submit').children().on('click', function() {
+            if($(this).parent().siblings('.sbs-on').length > 0) {  //sbs was on, so turn it off
+                sideBySideEditing(toAppend);
+            }
         });
     }, 1000)
 }
 
-//bookkeeping variables
-// - numOfEditingSBS is the number of non-new-answer SBS that are currently active
-//    - used to keep track of when the vote counters should be hidden
-//    - remains set to 0 when asking a new question
-// - sbsExpanded is a boolean dictionary using the question/answer IDs (and the string "newAnswer") as keys
-//    - used to toggle sbs on/off for particular text input boxes
-//    - also makes sense when asking a new question, and is given the value "newAnswer" then for convenience
-var numOfEditingSBS = 0;
-var sbsExpanded = new Object();
-
-if(window.location.pathname.indexOf('questions/ask') < 0) { //not posting a new question
+if(window.location.pathname.indexOf('questions/ask') < 0) {  //not posting a new question
     //get question and answer IDs for keeping track of the event listeners
     var anchorList = $('#answers').children("a");  //answers have anchor tags before them of the form <a name="#">, where # is the answer ID
     var numAnchors = anchorList.length;
