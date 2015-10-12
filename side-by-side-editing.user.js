@@ -89,6 +89,12 @@ GM_addStyle ('                                      \
     }                                               \
 ');
 
+/**
+ * Toggles side-by-side editing on and off.
+ * @param {string} toAppend - Should either be empty or be of the form '-#',
+ *                             where # is the id of the question/answer whose
+ *                             sbs mode is being toggled.
+ */
 function sideBySideEditing(toAppend) {
     //variables to reduce DOM searches
     var wmdinput = $('#wmd-input' + toAppend);
@@ -134,7 +140,7 @@ function sideBySideEditing(toAppend) {
         $('#sidebar').addClass('sbs-on');
         $('#content').addClass('sbs-on');
 
-        if(toAppend.length > 0) {  //current sbs toggle is for an edit window
+        if(toAppend.length > 0) {  //current sbs toggle is for an edit
             $('.votecell').addClass('sbs-on');
         }
 
@@ -162,6 +168,13 @@ function sideBySideEditing(toAppend) {
     }
 }
 
+/**
+ * Adds the "Toggle Side-By-Side Editing" button to the UI, as well as the
+ *  associated click listeners.
+ * @param {jQuery} jNode - A jQuery object which points to the "redo" button
+ *                          from the SE composition/editing pane sent by the
+ *                          waitForKeyElements() call.
+ */
 function addButton(jNode) {
     var itemid = jNode[0].id.replace( /^\D+/g, '');
     var toAppend = (itemid.length > 0 ? '-' + itemid : '');  //helps select tags specific to the question/answer being
