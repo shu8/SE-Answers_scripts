@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Side By Side Editing
+// @name         SE Side By Side Editing
 // @namespace    http://stackexchange.com/users/4337810/
 // @version      1.1
 // @description  A userscript for Stack Exchange sites that adds the option to have the preview and editor side-by-side when posting and editing questions and answers
@@ -30,6 +30,16 @@ GM_addStyle ('                                      \
                                                     \
     .draft-discarded.sbs-on {                       \
         margin-left: 35px !important;               \
+    }                                               \
+                                                    \
+    .draft-saved.sbs-on.sbs-newq {                  \
+        margin-left: 40px !important;               \
+        float: left !important;                     \
+    }                                               \
+                                                    \
+    .draft-discarded.sbs-on.sbs-newq {              \
+        margin-left: 40px !important;               \
+        float: left !important;                     \
     }                                               \
                                                     \
     .votecell.sbs-on {                              \
@@ -70,7 +80,11 @@ GM_addStyle ('                                      \
         margin-top: 10px !important;                \
     }                                               \
                                                     \
-    .tag-editor-p.sbs-on {                          \
+    .tag-editor-p.sbs-on.sbs-newq {                 \
+        float: left;                                \
+    }                                               \
+                                                    \
+    .form-item.sbs-on.sbs-newq {                    \
         float: left;                                \
     }                                               \
 ');
@@ -80,11 +94,13 @@ function sideBySideEditing(toAppend) {
     var wmdinput = $('#wmd-input' + toAppend);
     var wmdpreview = $('#wmd-preview' + toAppend);
     var posteditor = $('#post-editor' + toAppend);
-    
-    $('#draft-saved' + toAppend).toggleClass('sbs-on');
-    $('#draft-discarded' + toAppend).toggleClass('sbs-on');
-    $('#wmd-button-bar' + toAppend).toggleClass('sbs-on');
+    var draftsaved = $('#draft-saved' + toAppend);
+    var draftdiscarded = $('#draft-discarded' + toAppend);
 
+    $('#wmd-button-bar' + toAppend).toggleClass('sbs-on');
+    
+    draftsaved.toggleClass('sbs-on');
+    draftdiscarded.toggleClass('sbs-on');
     posteditor.toggleClass('sbs-on');
     wmdinput.parent().toggleClass('sbs-on');  //wmdinput.parent() has class wmd-container
     wmdpreview.toggleClass('sbs-on');
@@ -100,14 +116,25 @@ function sideBySideEditing(toAppend) {
 
     if(window.location.pathname.indexOf('questions/ask') > -1) {  //extra CSS for 'ask' page
         wmdpreview.toggleClass('sbs-newq');
-        $('.tag-editor').parent().toggleClass('tag-editor-p sbs-on');
+        draftsaved.toggleClass('sbs-newq');
+        draftdiscarded.toggleClass('sbs-newq');
+        $('.tag-editor').parent().toggleClass('tag-editor-p sbs-on sbs-newq');
+        $('#question-only-section').children('.form-item').toggleClass('sbs-on sbs-newq');
+
+        //swap the order of thing to prevent draft saved/discarded messages from
+        // moving the preview pane around
+        if(wmdpreview.hasClass('sbs-on')) {
+            draftsaved.before(wmdpreview);
+        } else {
+            draftdiscarded.after(wmdpreview);
+        }
     }
 
     if(wmdpreview.hasClass('sbs-on')) {  //sbs was toggled on
         $('#sidebar').addClass('sbs-on');
         $('#content').addClass('sbs-on');
 
-        if(toAppend.length > 0) {  //current sbs toggle is for an edit interface
+        if(toAppend.length > 0) {  //current sbs toggle is for an edit window
             $('.votecell').addClass('sbs-on');
         }
 
@@ -137,8 +164,8 @@ function sideBySideEditing(toAppend) {
 
 function addButton(jNode) {
     var itemid = jNode[0].id.replace( /^\D+/g, '');
-    var toAppend = (itemid.length > 0 ? '-' + itemid : '');  //helps select tags specific to the question/answer
-                                                             // being edited (or new question/answer being written)
+    var toAppend = (itemid.length > 0 ? '-' + itemid : '');  //helps select tags specific to the question/answer being
+                                                             // edited (or new question/answer being written)
     setTimeout(function() {
         var sbsBtn = '<li class="wmd-button" title="side-by-side-editing" style="left: 415px;width: 170px;"> \
                       <div id="wmd-sbs-button' + toAppend + '" style="background-image: none;">              \
@@ -162,7 +189,8 @@ function addButton(jNode) {
 
 if(window.location.pathname.indexOf('questions/ask') < 0) {  //not posting a new question
     //get question and answer IDs for keeping track of the event listeners
-    var anchorList = $('#answers').children("a");  //answers have anchor tags before them of the form <a name="#">, where # is the answer ID
+    var anchorList = $('#answers').children("a");  //answers have anchor tags before them of the form <a name="#">,
+                                                   // where # is the answer ID
     var numAnchors = anchorList.length;
     var itemIDs = [];
 
