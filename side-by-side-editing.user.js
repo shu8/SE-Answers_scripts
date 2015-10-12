@@ -34,11 +34,13 @@ GM_addStyle ('                                      \
                                                     \
     .draft-saved.sbs-on.sbs-newq {                  \
         margin-left: 40px !important;               \
+        margin-bottom: -9px !important;             \
         float: left !important;                     \
     }                                               \
                                                     \
     .draft-discarded.sbs-on.sbs-newq {              \
         margin-left: 40px !important;               \
+        margin-bottom: -9px !important;             \
         float: left !important;                     \
     }                                               \
                                                     \
@@ -81,11 +83,11 @@ GM_addStyle ('                                      \
     }                                               \
                                                     \
     .tag-editor-p.sbs-on.sbs-newq {                 \
-        float: left;                                \
+        float: left !important;                     \
     }                                               \
                                                     \
     .form-item.sbs-on.sbs-newq {                    \
-        float: left;                                \
+        float: left !important;                     \
     }                                               \
 ');
 
