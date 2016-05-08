@@ -11,7 +11,6 @@
 (function() {
     'use strict';
     document.onkeyup = function(e) {
-        console.log(e.keyCode);
         if(e.ctrlKey && e.shiftKey && (e.keyCode == 117 || e.keyCode == 85)) {
             window.prompt('Press Ctrl+C/Ctrl+X', location.protocol + '//' + location.hostname + location.pathname);
         }
