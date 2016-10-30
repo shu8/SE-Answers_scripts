@@ -66,8 +66,8 @@
         transform: scale(1, 1)
     }
 }
-.vote-down-off,
-.vote-up-off {
+.vote-down-off.sox-better-css,
+.vote-up-off.sox-better-css {
     position: relative;
     transition: all .1s ease, background-color .4s ease, background-position .4s ease;
     -webkit-transition: height .1s ease, background-color .4s ease, background-position .4s ease;
@@ -75,19 +75,19 @@
     -ms-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
     -o-transition: all .1s ease, background-color .4s ease, background-position .4s ease
 }
-.vote-down-off:hover,
-.vote-up-off:hover,
-.star-off:hover,
-.star-on:hover {
+.vote-down-off.sox-better-css:hover,
+.vote-up-off.sox-better-css:hover,
+.star-off.sox-better-css:hover,
+.star-on.sox-better-css:hover {
     -webkit-animation-name: pulse;
     -webkit-animation-duration: .5s;
     animation-name: pulse;
     animation-duration: .5s
 }
-.vote-down-off:active,
-.vote-up-off:active,
-.star-off:active,
-.star-on:active{
+.vote-down-off.sox-better-css:active,
+.vote-up-off.sox-better-css:active,
+.star-off.sox-better-css:active,
+.star-on.sox-better-css:active{
     -webkit-animation-name: press;
     -webkit-animation-duration: .5s;
     animation-name: press;
