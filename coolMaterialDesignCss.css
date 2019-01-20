@@ -66,8 +66,8 @@
         transform: scale(1, 1)
     }
 }
-.vote-down-off.sox-better-css,
-.vote-up-off.sox-better-css {
+.js-vote-up-btn.sox-better-css:not(.fc-theme-primary),
+.js-vote-down-btn.sox-better-css:not(.fc-theme-primary) {
     position: relative;
     transition: all .1s ease, background-color .4s ease, background-position .4s ease;
     -webkit-transition: height .1s ease, background-color .4s ease, background-position .4s ease;
@@ -75,19 +75,17 @@
     -ms-transition: all .1s ease, background-color .4s ease, background-position .4s ease;
     -o-transition: all .1s ease, background-color .4s ease, background-position .4s ease
 }
-.vote-down-off.sox-better-css:hover,
-.vote-up-off.sox-better-css:hover,
-.star-off.sox-better-css:hover,
-.star-on.sox-better-css:hover {
+.js-vote-up-btn.sox-better-css:not(.fc-theme-primary):hover,
+.js-vote-down-btn.sox-better-css:not(.fc-theme-primary):hover,
+.js-favorite-btn.sox-better-css:not(.fc-theme-primary):hover {
     -webkit-animation-name: pulse;
     -webkit-animation-duration: .5s;
     animation-name: pulse;
     animation-duration: .5s
 }
-.vote-down-off.sox-better-css:active,
-.vote-up-off.sox-better-css:active,
-.star-off.sox-better-css:active,
-.star-on.sox-better-css:active{
+.js-vote-up-btn.sox-better-css:not(.fc-theme-primary):active,
+.js-vote-down-btn.sox-better-css:not(.fc-theme-primary):active,
+.js-favorite-btn.sox-better-css:not(.fc-theme-primary):active {
     -webkit-animation-name: press;
     -webkit-animation-duration: .5s;
     animation-name: press;
