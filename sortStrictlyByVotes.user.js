@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Sort by votes, properly...
 // @namespace    http://stackexchange.com/users/4337810
-// @version      1.3
+// @version      1.4
 // @description  Adds a new option on questions to sort answers by votes *ignoring the accepted answer* - unlike the current 'votes' tab.
 // @author       ᔕᖺᘎᕊ (http://stackexchange.com/users/4337810)
 // @match        *://*.stackexchange.com/*
@@ -17,28 +17,23 @@
 setTimeout(function() {
     if ( $('.answer').length ) {
         $('.answer').each(function() {
-            votes = $(this).find('.js-vote-count').text();
+            const votes = $(this).find('.js-vote-count').text();
             $(this).attr('data-votes', votes); //add a 'votes' attribute to all the questions
         });
 
-        var $wrapper = $('#answers');
+        const $header = $('#answers-header');
+        const $option = $('<option/>', { id: 'actualscoredesc-sort', value: 'actualscoredesc', text: 'Highest score (actual)' });
 
-        $('#answers-header').insertBefore('#answers');
-        $('#tabs').append('<a href="javascript:void(0)" id="realVotesTab" title="Answers with the highest score first (ignoring accepted answers!)">real votes</a>');
+        $('#answer-sort-dropdown-select-menu').append($option);
 
-        $('#realVotesTab').on('click', function() {
-            $('#tabs a').removeClass('youarehere');
-            $(this).addClass('youarehere');
+        if(document.URL.indexOf('?answertab=actualscoredesc') !== -1) {
             //Thanks: http://stackoverflow.com/a/14160529/3541881
-            $wrapper.find('.answer').sort(function(a, b) {
+            $('#answers').find('.answer').sort(function(a, b) {
                 return +b.getAttribute('data-votes') - +a.getAttribute('data-votes');
-            }).prependTo($wrapper);
-        });
-
-        //Comment out the next 8 lines if you do not want the 'real votes' tab to automatically be chosen when yuo first arrive at a question (ie. prepend "//" to the next 3 lines)
-        if(document.URL.indexOf('?answertab=') == -1) {
-           $('#realVotesTab').trigger('click');
+            }).insertAfter($header);
+            $option.prop('selected', true);
         }
+
         if($(location).attr('href').indexOf('#') > -1) { //if the user came to see a specific answer (via the URL), take them to that answer again!
             setTimeout(function() { //scroll back to
                 $(window).scrollTop($("#answer-"+$(location).attr('href').split('/')[6].split('#')[1]).offset().top);
