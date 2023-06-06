@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Will question be deleted?
 // @namespace    http://stackexchange.com/users/4337810/%E1%94%95%E1%96%BA%E1%98%8E%E1%95%8A
-// @version      1.3.1
+// @version      1.3.2
 // @description  Adds a message on questions which *might* be deleted by the SE delete bot
 // @author       ᔕᖺᘎᕊ (http://stackexchange.com/users/4337810/%E1%94%95%E1%96%BA%E1%98%8E%E1%95%8A)
 // @match        *://*.stackexchange.com/*
@@ -36,12 +36,12 @@ const id = +$(location).attr("href").split("/")[4],
 $.getJSON(
   "https://api.stackexchange.com/2.2/questions/" +
     id +
-    "?order=desc&sort=activity&site=" +
+    "?order=desc&sort=activity&filter=!4(egaZDJpDbrxz(te&site=" +
     sitename,
     function (json) {
-      
+
     const creationDate = json.items[0].creation_date,
-      answers = json.items[0].answer_count,
+      answerCount = json.items[0].answer_count,
       views = json.items[0].view_count,
       closedReason = json.items[0].closed_reason,
       score = json.items[0].score;
@@ -55,8 +55,8 @@ $.getJSON(
           //if the score is less than or equal to 0
           if (!json.items[0].locked_date) {
             //if it is not locked
-            if (answers == 0) {
-              //if it has 0 answers
+            if (answerCount == 0 || json.items[0].answers.find(a => a.score <= 0)) {
+              //if it has 0 positively scored answers
               if (!json.items[0].accepted_answer_id) {
                 //if it has no accepted answer
                 addWarning("Within 9 days");
@@ -70,7 +70,7 @@ $.getJSON(
     else if (currentTime - creationDate >= fifteenDays) {
       if (score <= -1) {
         //if the vote count is <= -1
-        if (answerCount.trim() === 0) {
+        if (answerCount === 0) {
           //if there are no answers
           if (!json.items[0].locked_date) {
             //if it isn't locked
@@ -82,7 +82,7 @@ $.getJSON(
     // More than 365 days old:
     else if (currentTime - creationDate <= elevenMonths) {
       //If it's been at least 11 months (we don't care about questions newer than that, yet...)
-      if (answers == 0) {
+      if (answerCount == 0) {
         //if there aren't any answers
         if (!json.items[0].locked_date) {
           //if it is not locked
